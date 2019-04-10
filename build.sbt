@@ -39,7 +39,6 @@ lazy val main = (project in file("main"))
     name := "main",
     libraryDependencies ++= libDependencies
   )
-  .dependsOn(
-    core,
-    auto
-  )
+  .dependsOn(core, auto)
+
+lazy val root = (project in file(".")).aggregate(main, core, auto)
