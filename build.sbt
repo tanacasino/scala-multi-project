@@ -1,5 +1,4 @@
 ThisBuild / scalaVersion := "2.12.8"
-ThisBuild / version := "0.1.0"
 ThisBuild / organization := "com.github.tanacasino.example"
 ThisBuild / organizationName := "tanacasino.example"
 ThisBuild / scalacOptions ++= Seq(
@@ -18,26 +17,27 @@ ThisBuild / scalacOptions ++= Seq(
   "-Xfatal-warnings"
 )
 
-lazy val libDependencies = Seq(
-  Dependencies.ScalaTest
-)
+lazy val core = (project in file("core"))
+  .settings(
+    name := "core",
+    libraryDependencies ++= Seq(
+      Dependencies.JawnParser,
+      Dependencies.ScalaTest % Test
+    )
+  )
 
 lazy val auto = (project in file("auto"))
   .settings(
     name := "auto",
-    libraryDependencies ++= libDependencies
+    libraryDependencies ++= Seq(
+      Dependencies.ScalaTest % Test
+    )
   )
-
-lazy val core = (project in file("core"))
-  .settings(
-    name := "core",
-    libraryDependencies ++= libDependencies
-  )
+  .dependsOn(core)
 
 lazy val main = (project in file("main"))
   .settings(
-    name := "main",
-    libraryDependencies ++= libDependencies
+    name := "main"
   )
   .dependsOn(core, auto)
 

@@ -5,4 +5,6 @@ object Dependencies {
   val ScalaTestVersion = "3.0.5"
   val ScalaTest        = "org.scalatest" %% "scalatest" % ScalaTestVersion
 
+  val JawnParser = "org.typelevel" %% "jawn-parser" % "0.14.0"
+
 }
