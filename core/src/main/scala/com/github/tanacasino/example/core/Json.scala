@@ -21,6 +21,9 @@ object Json {
   def num(value: Int): JsonNumber =
     JsonNumber(value.toString)
 
+  def num(value: Double): JsonNumber =
+    JsonNumber(value.toString)
+
   def bool(value: Boolean): JsonBoolean =
     JsonBoolean(value)
 
