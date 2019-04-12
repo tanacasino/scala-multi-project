@@ -5,14 +5,14 @@ import scala.util.Try
 /**
   * JSON AST
   */
-sealed trait JsonValue
+sealed trait Json
 
-object JsonValue {
+object Json {
 
-  def obj(values: (String, JsonValue)*): JsonObject =
+  def obj(values: (String, Json)*): JsonObject =
     JsonObject(values.toMap)
 
-  def arr(values: JsonValue*): JsonArray =
+  def arr(values: Json*): JsonArray =
     JsonArray(values.toList)
 
   def str(value: String): JsonString =
@@ -30,28 +30,28 @@ object JsonValue {
   *  JSON object {}
   * @param values Key and Json Value
   */
-case class JsonObject(values: Map[String, JsonValue]) extends JsonValue
+case class JsonObject(values: Map[String, Json]) extends Json
 
 /**
   * JSON array []
   * @param values json values array
   */
-case class JsonArray(values: List[JsonValue]) extends JsonValue
+case class JsonArray(values: List[Json]) extends Json
 
 /**
   * true or false
   */
-case class JsonBoolean(value: Boolean) extends JsonValue
+case class JsonBoolean(value: Boolean) extends Json
 
 /**
   * string
   */
-case class JsonString(value: String) extends JsonValue
+case class JsonString(value: String) extends Json
 
 /**
   * number
   */
-case class JsonNumber(value: String) extends JsonValue {
+case class JsonNumber(value: String) extends Json {
   def asInt: Try[Int]        = Try(value.toInt)
   def asUnsafeInt: Int       = value.toInt
   def asDouble: Try[Double]  = Try(value.toDouble)
@@ -61,4 +61,4 @@ case class JsonNumber(value: String) extends JsonValue {
 /**
   * null
   */
-case object JsonNull extends JsonValue
+case object JsonNull extends Json
