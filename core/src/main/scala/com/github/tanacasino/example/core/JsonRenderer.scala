@@ -7,14 +7,14 @@ import scala.collection.mutable
   */
 object JsonRenderer {
 
-  final def render(jv: Json): String = {
+  final def render(json: Json): String = {
     val sb = new StringBuilder
-    render(sb, depth = 0, jv = jv)
+    render(sb, depth = 0, json = json)
     sb.toString
   }
 
-  final def render(sb: StringBuilder, depth: Int, jv: Json): Unit =
-    jv match {
+  final def render(sb: StringBuilder, depth: Int, json: Json): Unit =
+    json match {
       case JsonNull       => sb.append("null")
       case JsonBoolean(b) => if (b) sb.append("true") else sb.append("false")
       case JsonNumber(n)  => sb.append(n)
