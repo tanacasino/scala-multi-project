@@ -25,7 +25,7 @@ class JsonRendererTest extends FlatSpec with Matchers {
     )
     val expected =
       """{"name":"Tarou","age":33,"hasFriend":true,"tags":["string",false,10.1,10,null,{"key1":{"key1-1":"value1-1"},"key2":10000}]}"""
-    val actual = SimpleJsonRenderer.render(json)
+    val actual = JsonRenderer.render(json)
     println(actual)
     actual shouldBe expected
   }
