@@ -28,6 +28,6 @@ jobs:
 
       - run: cat /dev/null | sbt scalafmtCheckAll scalafmtSbtCheck
       - run: cat /dev/null | sbt coverage test:test coverageReport
-#      - run: bash <(curl -s https://codecov.io/bash)
+      - run: bash <(curl -s https://codecov.io/bash)
 
 
