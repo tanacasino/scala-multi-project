@@ -1,76 +1,63 @@
 package com.github.tanacasino.example.core
 
-import scala.collection.mutable
-
-/**
-  * See https://github.com/typelevel/jawn/blob/master/ast/src/main/scala/jawn/ast/Renderer.scala
-  */
 object JsonRenderer {
 
   final def render(json: Json): String = {
     val sb = new StringBuilder
-    render(sb, depth = 0, json = json)
-    sb.toString
+    render(json, sb)
+    sb.toString()
   }
 
-  final def render(sb: StringBuilder, depth: Int, json: Json): Unit =
+  final def render(json: Json, sb: StringBuilder): Unit = {
     json match {
-      case JsonNull       => sb.append("null")
-      case JsonBoolean(b) => if (b) sb.append("true") else sb.append("false")
-      case JsonNumber(n)  => sb.append(n)
-      case JsonString(s)  => renderString(sb, s)
-      case JsonArray(vs)  => renderArray(sb, depth, vs)
-      case JsonObject(vs) => renderObject(sb, depth, canonicalizeObject(mutable.Map(vs.toSeq: _*)))
+      case JsonObject(values) =>
+        sb.append("{")
+        var i = 0
+        values.foreach {
+          case (key, value) =>
+            sb.append("\"")
+            sb.append(key)
+            sb.append("\"")
+            sb.append(":")
+            render(value, sb)
+            i += 1
+            if (i < values.size) {
+              sb.append(",")
+            }
+        }
+        sb.append("}")
+      case JsonArray(values) =>
+        sb.append("[")
+        var i = 0
+        values.foreach { value =>
+          render(value, sb)
+          i += 1
+          if (i < values.length) {
+            sb.append(",")
+          }
+        }
+        sb.append("]")
+      case JsonString(str) =>
+        renderString(str, sb)
+      case JsonNumber(value) =>
+        sb.append(value)
+      case JsonBoolean(value) =>
+        if (value) {
+          sb.append("true")
+        } else {
+          sb.append("false")
+        }
+      case JsonNull =>
+        sb.append("null")
     }
-
-  def canonicalizeObject(vs: mutable.Map[String, Json]): Iterator[(String, Json)] =
-    vs.iterator
-
-  def renderString(sb: StringBuilder, s: String): Unit =
-    escape(sb, s, unicode = false)
-
-  final def renderArray(sb: StringBuilder, depth: Int, vs: List[Json]): Unit = {
-    if (vs.isEmpty) return {
-      sb.append("[]")
-      ()
-    }
-    sb.append("[")
-    render(sb, depth + 1, vs.head)
-    var i = 1
-    while (i < vs.length) {
-      sb.append(",")
-      render(sb, depth + 1, vs(i))
-      i += 1
-    }
-    sb.append("]")
   }
 
-  final def renderObject(sb: StringBuilder, depth: Int, it: Iterator[(String, Json)]): Unit = {
-    if (!it.hasNext) return {
-      sb.append("{}")
-      ()
-    }
-    val (k0, v0) = it.next
-    sb.append("{")
-    renderString(sb, k0)
-    sb.append(":")
-    render(sb, depth + 1, v0)
-    while (it.hasNext) {
-      val (k, v) = it.next
-      sb.append(",")
-      renderString(sb, k)
-      sb.append(":")
-      render(sb, depth + 1, v)
-    }
-    sb.append("}")
-  }
-
-  final def escape(sb: StringBuilder, s: String, unicode: Boolean): Unit = {
-    sb.append('"')
+  def renderString(value: String, sb: StringBuilder): Unit = {
+    sb.append("\"")
     var i   = 0
-    val len = s.length
+    val len = value.length
     while (i < len) {
-      (s.charAt(i): @scala.annotation.switch) match {
+      value.charAt(i) match {
         case '"'  => sb.append("\\\"")
         case '\\' => sb.append("\\\\")
         case '\b' => sb.append("\\b")
@@ -79,12 +66,15 @@ object JsonRenderer {
         case '\r' => sb.append("\\r")
         case '\t' => sb.append("\\t")
         case c =>
-          if (c < ' ' || (c > '~' && unicode)) sb.append("\\u%04x" format c.toInt)
-          else sb.append(c)
+          if (c < ' ') {
+            sb.append("\\u%04x" format c.toInt)
+          } else {
+            sb.append(c)
+          }
       }
       i += 1
     }
-    sb.append('"')
+    sb.append("\"")
   }
 
 }
