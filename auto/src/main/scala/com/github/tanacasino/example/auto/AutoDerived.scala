@@ -1,6 +1,6 @@
 package com.github.tanacasino.example.auto
 
-object AutoDervived {
+object AutoDerived {
 
   def todo = ???
 
