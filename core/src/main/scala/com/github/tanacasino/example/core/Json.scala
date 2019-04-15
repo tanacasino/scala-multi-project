@@ -5,7 +5,15 @@ import scala.util.Try
 /**
   * JSON AST
   */
-sealed trait Json
+sealed trait Json {
+
+  def ++(that: Json): Json = (this, that) match {
+    case (JsonObject(thisValues), JsonObject(thatValues)) =>
+      JsonObject(thisValues ++ thatValues)
+    case _ => throw new Exception("(T_T)")
+  }
+
+}
 
 object Json {
 

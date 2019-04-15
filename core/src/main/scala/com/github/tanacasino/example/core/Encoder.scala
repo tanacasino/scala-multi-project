@@ -14,6 +14,10 @@ object Encoder {
 
   def encode[A](a: A)(implicit encoder: Encoder[A]): Json = encoder.encode(a)
 
+  def instance[A](f: A => Json): Encoder[A] = new Encoder[A] {
+    override def encode(a: A): Json = f(a)
+  }
+
   implicit object StringEncoder extends Encoder[String] {
     override def encode(a: String): Json = Json.str(a)
   }
