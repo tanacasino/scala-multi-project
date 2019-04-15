@@ -29,6 +29,7 @@ lazy val auto = (project in file("auto"))
   .settings(
     name := "auto",
     libraryDependencies ++= Seq(
+      Dependencies.Shapeless,
       Dependencies.ScalaTest % Test
     )
   )
@@ -41,3 +42,4 @@ lazy val main = (project in file("main"))
   .dependsOn(core, auto)
 
 lazy val root = (project in file(".")).aggregate(main, core, auto)
+

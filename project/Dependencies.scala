@@ -7,4 +7,6 @@ object Dependencies {
 
   val JawnParser = "org.typelevel" %% "jawn-parser" % "0.14.0"
 
+  val Shapeless = "com.chuusai" %% "shapeless" % "2.3.3"
+
 }
