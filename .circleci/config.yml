@@ -17,12 +17,11 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "build.sbt" }}
             - v1-dependencies-
-      - run: cat /dev/null | sbt clean update
+      - run: cat /dev/null | sbt clean update scalafmtCheckAll scalafmtSbtCheck
       - save_cache:
           paths:
             - ~/.ivy2
           key: v1-dependencies--{{ checksum "build.sbt" }}
-      - run: cat /dev/null | sbt scalafmtCheckAll scalafmtSbtCheck
       - run: cat /dev/null | sbt compile coverage test:test coverageReport
       - run: bash <(curl -s https://codecov.io/bash)
 
