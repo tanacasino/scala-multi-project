@@ -8,15 +8,19 @@ trait Encoder[A] { self =>
 
 }
 
-object Encoder {
+object Encoder extends DefaultEncoders {
 
-  def apply[A](implicit encoder: Encoder[A]): Encoder[A] = encoder
+  def apply[A](f: A => Json): Encoder[A] = new Encoder[A] {
+    override def encode(a: A): Json = f(a)
+  }
 
   def encode[A](a: A)(implicit encoder: Encoder[A]): Json = encoder.encode(a)
 
-  def instance[A](f: A => Json): Encoder[A] = new Encoder[A] {
-    override def encode(a: A): Json = f(a)
-  }
+  def get[A](implicit encoder: Encoder[A]): Encoder[A] = encoder
+
+}
+
+trait DefaultEncoders {
 
   implicit object StringEncoder extends Encoder[String] {
     override def encode(a: String): Json = Json.str(a)
