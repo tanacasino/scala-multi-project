@@ -42,4 +42,3 @@ lazy val main = (project in file("main"))
   .dependsOn(core, auto)
 
 lazy val root = (project in file(".")).aggregate(main, core, auto)
-
