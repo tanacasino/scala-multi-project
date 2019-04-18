@@ -15,7 +15,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.sbt" }}
+            - v1-dependencies-{{ checksum "project/Dependencies.scala" }}
             - v1-dependencies-
       - run: sbt 'set parallelExecution in Global := false' scalafmtCheckAll scalafmtSbtCheck
       - save_cache:
