@@ -4,7 +4,7 @@ import com.github.tanacasino.example.core.JsonParser
 
 object JsonRun {
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val jsonString = """{"id": 100, "name": "Tarou", "hasFriend": false}"""
     JsonParser
       .parseFromString(jsonString)

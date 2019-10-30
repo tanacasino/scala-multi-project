@@ -1,20 +1,17 @@
-ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / organization := "com.github.tanacasino.example"
 ThisBuild / organizationName := "tanacasino.example"
 ThisBuild / scalacOptions ++= Seq(
   "-deprecation",
   "-unchecked",
-  "-Ypartial-unification",
   "-language:existentials",
   "-language:higherKinds",
   "-language:implicitConversions",
-  "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-unused",
-  "-Ywarn-unused-import",
   "-Xlint",
+  "-Xlint:deprecation",
   "-Xfatal-warnings"
 )
+
 
 lazy val core = (project in file("core"))
   .settings(
