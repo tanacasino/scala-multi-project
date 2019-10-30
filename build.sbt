@@ -12,7 +12,6 @@ ThisBuild / scalacOptions ++= Seq(
   "-Xfatal-warnings"
 )
 
-
 lazy val core = (project in file("core"))
   .settings(
     name := "core",
