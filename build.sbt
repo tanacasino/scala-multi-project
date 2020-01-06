@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "2.13.0"
+ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / organization := "com.github.tanacasino.example"
 ThisBuild / organizationName := "tanacasino.example"
 ThisBuild / scalacOptions ++= Seq(

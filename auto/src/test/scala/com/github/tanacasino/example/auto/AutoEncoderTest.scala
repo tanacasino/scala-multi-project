@@ -1,10 +1,11 @@
 package com.github.tanacasino.example.auto
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import com.github.tanacasino.example.core.{Encoder, Json}
 
-class AutoEncoderTest extends FlatSpec with Matchers {
+class AutoEncoderTest extends AnyFlatSpec with Matchers {
 
   import AutoEncoderTest._
 

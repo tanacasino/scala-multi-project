@@ -1,8 +1,9 @@
 package com.github.tanacasino.example.core
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class JsonRendererTest extends FlatSpec with Matchers {
+class JsonRendererTest extends AnyFlatSpec with Matchers {
 
   "A JsonRenderer" should "render" in {
     val json = Json.obj(
@@ -26,7 +27,7 @@ class JsonRendererTest extends FlatSpec with Matchers {
     val expected =
       """{"name":"Tarou","age":33,"hasFriend":true,"tags":["string",false,10.1,10,null,{"key1":{"key1-1":"value1-1"},"key2":10000}]}"""
     val actual = JsonRenderer.render(json)
-    println(actual)
+
     actual shouldBe expected
   }
 

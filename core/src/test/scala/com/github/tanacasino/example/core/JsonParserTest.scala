@@ -1,8 +1,10 @@
 package com.github.tanacasino.example.core
 
-import org.scalatest.{FlatSpec, Matchers, TryValues}
+import org.scalatest.TryValues
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class JsonParserTest extends FlatSpec with Matchers with TryValues {
+class JsonParserTest extends AnyFlatSpec with Matchers with TryValues {
 
   "A JsonParser" should "parseFromString" in {
     val expected = Json.obj(
